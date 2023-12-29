@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+            transition: 0.5s;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+
+        }
+
+        svg {
+            height: 100%; /* Adjusted to fill the viewport height */
+            width: 100%; /* Adjusted to fill the viewport width */
+            z-index: -1;
+        }
+
+        .avatar {
+            width: 250px;
+            height: 250px;
+            position: absolute;
+            z-index: 100;
+            top: 400px; /* Adjust the vertical position */
+            left: 50px; /* Adjust the horizontal position */
+            background-image: url('https://creazilla-store.fra1.digitaloceanspaces.com/icons/3247990/user-icon-md.png');
+            background-size: cover;
+            border-radius: 50%; /* Making the image circular */
+            box-shadow: 0 0 10px #0066FF;
+        }
+
+        .pc {
+            position: absolute;
+            width: 524px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            top: 20px; /* Adjust the vertical position */
+            left: 50%; /* Centering the navigation */
+            transform: translateX(-50%);
+            background: #065a82;
+        }
+
+        .pc a {
+            position: relative; /* Added semicolon */
+            display: inline-block;
+            font-size: 1em;
+            font-weight: 500;
+            color: #fff;
+            text-decoration: none;
+            padding: 0 23px;
+            margin: 0 10px; /* Added some space between links */
+            z-index: 1;
+        }
+
+        .pc span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 140px;
+            height: 100%;
+            background: linear-gradient(45deg, #21295c, #1b3b6f);
+            border-radius: 8px;
+            transition: .5s;
+        }
+
+        .pc a:nth-child(1):hover~span
+        {
+            left: 0;
+        }
+
+        .pc a:nth-child(2):hover~span
+        {
+            left: 110px;
+        }
+
+        .pc a:nth-child(3):hover~span
+        {
+            left: 240px;
+        }
+
+        .pc a:nth-child(4):hover~span
+        {
+            left: 385px;
+        }
+
+        .hamburger {
+            position: absolute;
+            z-index: 2; /* Above the SVG */
+            top: 50px; /* Adjust the vertical position */
+            left: 50px; /* Adjust the horizontal position */
+            width: 100px;
+            height: 100px;
+        }
+
+        .button-one {
+            --button-color: #000;
+        }
+
+        .button-one .line {
+            transition: y 300ms ease-in 300ms, rotate 300ms ease-in, opacity 0ms 300ms;
+            transform-origin: center;
+        }
+
+        .button-one[aria-expanded="true"] .line {
+            transition: y 300ms ease-in, rotate 300ms ease-in 300ms, opacity 0ms 300ms;
+        }
+
+        .button-one[aria-expanded="true"] :is(.top, .bottom) {
+            y: 45;
+        }
+
+        .button-one[aria-expanded="true"] .top {
+            rotate: 45deg;
+        }
+
+        .button-one[aria-expanded="true"] .middle {
+            opacity: 0;
+        }
+
+        .button-one[aria-expanded="true"] .bottom {
+            rotate: -45deg;
+        }
+
+        :root {
+            --button-color: #000; /* Define custom property for button color */
+        }
+
+        /* Media query for small screens */
+        @media only screen and (max-width: 700px) {
+            .pc {
+                display: none; /* Hide navigation on phones */
+            }
+
+            .hamburger {
+                position: absolute;
+                z-index: 2;
+                top: 50px;
+                left: 50px;
+                width: 500px;
+                height: 500px;
+                display: block; 
+            }
+
+            svg {
+                width: 100vw; /* Fill the viewport width */
+                height: 100vh; /* Fill the viewport height */
+                z-index: -1;
+            }
+        }
+
+        /* Media query for larger screens */
+        @media only screen and (min-width: 701px) {
+            .pc {
+                /* Existing styles for computers */
+                position: absolute;
+                width: 524px;
+                height: 50px;
+                border-radius: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 100;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #065a82;
+            }
+
+            .hamburger {
+                display: none; /* Hide the hamburger menu on larger screens */
+            }
+        }
+
+        .wrapper {
+            display: block;
+            width: 1100px;
+            height: 1100px;
+            position: absolute;
+            z-index: 100;
+            top: 400px; /* Adjust the vertical position */
+            left: 500px; /* Adjust the horizontal position */
+        }
+
+        .wrapper .first-text {
+            font-size: 40px;
+            color: #fff;
+            margin-top: 15px;
+        }
+
+        .wrapper .sec-texts {
+            height: 90px;
+            line-height: 90px;
+            overflow: hidden;
+        }
+
+        .sec-texts li {
+            position: relative;
+            top: 0;
+            font-size: 40px;
+            color: #0066FF;
+            list-style: none;
+            padding: 0 20px;
+            text-shadow: 0 0 10px #0066FF;
+            animation: slide 12s steps(4) infinite, colorful 6s infinite;
+        }
+
+        @keyframes slide {
+            100% {
+                top: -360px;
+            }
+        }    
+
+        @keyframes colorful {
+            100% {
+            }
+        }
+
+        .sec-texts li span {
+            position: relative;
+        }
+
+        .sec-texts li span::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 900px;
+            height: 90px;
+            background: #002233;
+            border-left: 2px solid #0066FF;
+            animation: typing 1.5s steps(15) infinite alternate;
+        }
+
+        @keyframes typing {
+            100% {
+                left: 100%;
+                margin: 0 -35px 0 35px;
+            }
+        }
+
+        .wrapper div {
+            display: flex;
+        }
+
+        .wrapper p {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .wrapper h3 {
+            color: #fff;
+        }
+
+        .wrapper h1 {
+            color: #fff;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #002233;
+            transition: opacity 0.75s, visibility 0.75s;
+            z-index: 1000;
+        }
+
+        .loader--hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader::after {
+            content: "";
+            width: 75px;
+            height: 75px;
+            border: 15px solid #dddddd;
+            border-top-color: #0066FF;
+            border-radius: 50%;
+            animation: loading 0.75s ease infinite;
+        }
+
+        @keyframes loading {
+            from {
+                transform: rotate(0turn);
+            }
+            to {
+                transform: rotate(1turn);
+                }
+        }
+
+        .wrapper a {
+            display: block;
+            position: absolute;
+            z-index: 200;
+        }
+
+        @keyframes load-in1 {
+            from {
+                opacity: 0;
+                top: 500px; /* Start from bottom */
+            }
+            to {
+                opacity: 1;
+                top: 400; /* Settle at final position */
+            }
+        }
+
+        .avatar {
+            animation: load-in1 1s ease-in-out forwards;
+        }
+
+        .wrapper .html
+        .wrapper .css 
+        .wrapper .js
+        .wrapper .py {
+            height: 50px;
+            width: 50px;
+        }
+
+        .wrapper .html2
+        .wrapper .html2,
+        .wrapper .css2,
+        .wrapper .js2,
+        .wrapper .py2 {
+            color: #fff; /* Change the color to white */
+        }
+
+
+        .wrapper div div {
+            border-radius: 8px;
+            background-color: #263646;
+            height: 50px;
+            width: 50px;
+            margin-right: 50px;
+        }
+
+        .wrapper div div box-icon {
+            margin-top: 13.5px;
+            margin-left: 13.5px;
+        }
+
+        .wrapper .holder {
+            top: 500px;
+            border-top: #fff;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <svg id="visual" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+        <rect x="0" y="0" width="900" height="600" fill="#002233"></rect>
+        <path d="M0 469L21.5 475.8C43 482.7 86 496.3 128.8 502.8C171.7 509.3 214.3 508.7 257.2 489.3C300 470 343 432 385.8 428.7C428.7 425.3 471.3 456.7 514.2 467C557 477.3 600 466.7 642.8 450.3C685.7 434 728.3 412 771.2 406C814 400 857 410 878.5 415L900 420" fill="none" stroke-linecap="round" stroke-linejoin="miter" stroke="#0066FF" stroke-width="40"></path>
+    </svg>
+    <div class="avatar"></div>
+    <nav class="pc">
+        <a href="index.html">Home</a>
+        <a href="About.html">About</a>
+        <a href="Proffesion.html">Skills</a>
+        <a href="mailto:shriyaansknaidu2@gmail.com">Contact</a>
+        <span></span>
+    </nav>
+    <nav class="hamburger">
+        <button class="button-one" aria-controls="primary-navigation" aria-expanded="false">
+            <svg fill="var(--button-color)" class="hamburger" viewBox="0 0 100 100" width="250">
+              <rect class="line top" width="80" height="10" x="10" y="25" rx="5">
+              </rect>
+              <rect class="line middle" width="80" height="10" x="10" y="45" rx="5">
+              </rect>
+              <rect class="line bottom" width="80" height="10" x="10" y="65" rx="5">
+              </rect>
+            </svg>
+          </button>
+    </nav>
+    <div class="wrapper">
+        <h3>Skills</h3>
+        <h1>Shriyaans K</h1>
+        <div class="holder">
+            <div class="html"><box-icon class="html2" type='logo' name='html5' color='#fff'></box-icon></div>
+            <div class="css"><box-icon class="css2" name='css3' type='logo' color='#fff'></box-icon></div>
+            <div class="js"><box-icon class="js2" name='javascript' type='logo' color='#fff'></box-icon></div>
+            <div class="py"><box-icon class="py2" name='python' type='logo'color='#fff'></box-icon></div>
+        </div>
+    </div>
+    <div class="loader"></div>
+</body>
+<script>
+    const buttons = document.querySelectorAll("button");
+
+    buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const currentState = button.getAttribute("data-state");
+
+    if (!currentState || currentState === "closed") {
+      button.setAttribute("data-state", "opened");
+      button.setAttribute("aria-expanded", "true");
+    } else {
+      button.setAttribute("data-state", "closed");
+      button.setAttribute("aria-expanded", "false");
+    }
+    });
+    });
+    window.addEventListener("load", () => {
+        const loader = document.querySelector(".loader");
+
+        loader.classList.add("loader--hidden");
+
+        loader.addEventListener("transitionend", () => {
+    document.body.removeChild(loader);
+  });
+});
+
+
+</script>
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</html>
