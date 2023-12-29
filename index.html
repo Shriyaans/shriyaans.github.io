@@ -11,10 +11,16 @@
             transition: 0.5s;
         }
 
+        body {
+            display: flex;
+            justify-content: center;
+
+        }
+
         svg {
             height: 100%; /* Adjusted to fill the viewport height */
             width: 100%; /* Adjusted to fill the viewport width */
-            z-index: 1;
+            z-index: -1;
         }
 
         .avatar {
@@ -29,7 +35,7 @@
             border-radius: 50%; /* Making the image circular */
         }
 
-        nav {
+        .pc {
             position: absolute;
             width: 524px;
             height: 50px;
@@ -44,7 +50,7 @@
             background: #065a82;
         }
 
-        nav a {
+        .pc a {
             position: relative; /* Added semicolon */
             display: inline-block;
             font-size: 1em;
@@ -56,7 +62,7 @@
             z-index: 1;
         }
 
-        nav span {
+        .pc span {
             position: absolute;
             top: 0;
             left: 0;
@@ -67,21 +73,113 @@
             transition: .5s;
         }
 
-        nav a:nth-child(1):hover~span
+        .pc a:nth-child(1):hover~span
         {
             left: 0;
         }
 
-        nav a:nth-child(2):hover~span
+        .pc a:nth-child(2):hover~span
         {
             left: 110px;
         }
 
-        nav a:nth-child(1):hover~span
+        .pc a:nth-child(3):hover~span
         {
-            left: 0;
+            left: 240px;
         }
 
+        .pc a:nth-child(4):hover~span
+        {
+            left: 385px;
+        }
+
+        .hamburger {
+            position: absolute;
+            z-index: 2; /* Above the SVG */
+            top: 50px; /* Adjust the vertical position */
+            left: 50px; /* Adjust the horizontal position */
+            width: 100px;
+            height: 100px;
+        }
+
+        .button-one {
+            --button-color: #000;
+        }
+
+        .button-one .line {
+            transition: y 300ms ease-in 300ms, rotate 300ms ease-in, opacity 0ms 300ms;
+            transform-origin: center;
+        }
+
+        .button-one[aria-expanded="true"] .line {
+            transition: y 300ms ease-in, rotate 300ms ease-in 300ms, opacity 0ms 300ms;
+        }
+
+        .button-one[aria-expanded="true"] :is(.top, .bottom) {
+            y: 45;
+        }
+
+        .button-one[aria-expanded="true"] .top {
+            rotate: 45deg;
+        }
+
+        .button-one[aria-expanded="true"] .middle {
+            opacity: 0;
+        }
+
+        .button-one[aria-expanded="true"] .bottom {
+            rotate: -45deg;
+        }
+
+        :root {
+            --button-color: #000; /* Define custom property for button color */
+        }
+
+        /* Media query for small screens */
+        @media only screen and (max-width: 700px) {
+            .pc {
+                display: none; /* Hide navigation on phones */
+            }
+
+            .hamburger {
+                position: absolute;
+                z-index: 2;
+                top: 50px;
+                left: 50px;
+                width: 500px;
+                height: 500px;
+                display: block; 
+            }
+
+            svg {
+                width: 100vw; /* Fill the viewport width */
+                height: 100vh; /* Fill the viewport height */
+                z-index: -1;
+            }
+        }
+
+        /* Media query for larger screens */
+        @media only screen and (min-width: 701px) {
+            .pc {
+                /* Existing styles for computers */
+                position: absolute;
+                width: 524px;
+                height: 50px;
+                border-radius: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 100;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #065a82;
+            }
+
+            .hamburger {
+                display: none; /* Hide the hamburger menu on larger screens */
+            }
+        }
     </style>
 </head>
 <body>
@@ -90,12 +188,42 @@
         <path d="M0 469L21.5 475.8C43 482.7 86 496.3 128.8 502.8C171.7 509.3 214.3 508.7 257.2 489.3C300 470 343 432 385.8 428.7C428.7 425.3 471.3 456.7 514.2 467C557 477.3 600 466.7 642.8 450.3C685.7 434 728.3 412 771.2 406C814 400 857 410 878.5 415L900 420" fill="none" stroke-linecap="round" stroke-linejoin="miter" stroke="#0066FF" stroke-width="40"></path>
     </svg>
     <div class="avatar"></div>
-    <nav>
+    <nav class="pc">
         <a href="#">Home</a>
         <a href="#">About</a>
         <a href="#">Profession</a>
         <a href="#">Contact</a>
         <span></span>
     </nav>
+    <nav class="hamburger">
+        <button class="button-one" aria-controls="primary-navigation" aria-expanded="false">
+            <svg fill="var(--button-color)" class="hamburger" viewBox="0 0 100 100" width="250">
+              <rect class="line top" width="80" height="10" x="10" y="25" rx="5">
+              </rect>
+              <rect class="line middle" width="80" height="10" x="10" y="45" rx="5">
+              </rect>
+              <rect class="line bottom" width="80" height="10" x="10" y="65" rx="5">
+              </rect>
+            </svg>
+          </button>
+    </nav>
 </body>
+<script>
+    const buttons = document.querySelectorAll("button");
+
+    buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const currentState = button.getAttribute("data-state");
+
+    if (!currentState || currentState === "closed") {
+      button.setAttribute("data-state", "opened");
+      button.setAttribute("aria-expanded", "true");
+    } else {
+      button.setAttribute("data-state", "closed");
+      button.setAttribute("aria-expanded", "false");
+    }
+    });
+    });
+
+</script>
 </html>
