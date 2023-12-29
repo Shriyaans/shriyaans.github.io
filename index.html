@@ -33,6 +33,7 @@
             background-image: url('https://creazilla-store.fra1.digitaloceanspaces.com/icons/3247990/user-icon-md.png');
             background-size: cover;
             border-radius: 50%; /* Making the image circular */
+            box-shadow: 0 0 10px #0066FF;
         }
 
         .pc {
@@ -180,6 +181,90 @@
                 display: none; /* Hide the hamburger menu on larger screens */
             }
         }
+
+        .wrapper {
+            display: block;
+            width: 1100px;
+            height: 1100px;
+            position: absolute;
+            z-index: 100;
+            top: 400px; /* Adjust the vertical position */
+            left: 500px; /* Adjust the horizontal position */
+        }
+
+        .wrapper .first-text {
+            font-size: 40px;
+            color: #fff;
+            margin-top: 15px;
+        }
+
+        .wrapper .sec-texts {
+            height: 90px;
+            line-height: 90px;
+            overflow: hidden;
+        }
+
+        .sec-texts li {
+            position: relative;
+            top: 0;
+            font-size: 40px;
+            color: #0066FF;
+            list-style: none;
+            padding: 0 20px;
+            text-shadow: 0 0 10px #0066FF;
+            animation: slide 12s steps(4) infinite, colorful 6s infinite;
+        }
+
+        @keyframes slide {
+            100% {
+                top: -360px;
+            }
+        }    
+
+        @keyframes colorful {
+            100% {
+            }
+        }
+
+        .sec-texts li span {
+            position: relative;
+        }
+
+        .sec-texts li span::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 900px;
+            height: 90px;
+            background: #002233;
+            border-left: 2px solid #0066FF;
+            animation: typing 1.5s steps(15) infinite alternate;
+        }
+
+        @keyframes typing {
+            100% {
+                left: 100%;
+                margin: 0 -35px 0 35px;
+            }
+        }
+
+        .wrapper div {
+            display: flex;
+        }
+
+        .wrapper p {
+            color: #fff;
+            font-weight: 400;
+        }
+
+        .wrapper h3 {
+            color: #fff;
+        }
+
+        .wrapper h1 {
+            color: #fff;
+        }
+
     </style>
 </head>
 <body>
@@ -207,6 +292,19 @@
             </svg>
           </button>
     </nav>
+    <div class="wrapper">
+        <h3>Hello, It's Me</h3>
+        <h1>Shriyaans K</h1>
+        <div>
+            <span class="first-text">I'm a</span>
+            <ul class="sec-texts">
+                <li><span>Frontend Developer </span></li>
+                <li><span>Devops Developer </span></li>
+                <li><span>Web Designer </span></li>
+            </ul>
+        </div>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam eligendi reprehenderit eos explicabo! Itaque, repellendus.</p>
+    </div>
 </body>
 <script>
     const buttons = document.querySelectorAll("button");
