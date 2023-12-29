@@ -254,7 +254,7 @@
 
         .wrapper p {
             color: #fff;
-            font-weight: 400;
+            font-weight: 600;
         }
 
         .wrapper h3 {
@@ -264,6 +264,45 @@
         .wrapper h1 {
             color: #fff;
         }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #002233;
+            transition: opacity 0.75s, visibility 0.75s;
+            z-index: 1000;
+        }
+
+        .loader--hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader::after {
+            content: "";
+            width: 75px;
+            height: 75px;
+            border: 15px solid #dddddd;
+            border-top-color: #0066FF;
+            border-radius: 50%;
+            animation: loading 0.75s ease infinite;
+        }
+
+        @keyframes loading {
+            from {
+                transform: rotate(0turn);
+            }
+            to {
+                transform: rotate(1turn);
+                }
+        }
+
 
     </style>
 </head>
@@ -303,8 +342,10 @@
                 <li><span>Web Designer </span></li>
             </ul>
         </div>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam eligendi reprehenderit eos explicabo! Itaque, repellendus.</p>
+        <p>Hello My name is Shriyaans K I am a Devops Developer, Frontend Developer, and Web developer</p>
+        <p>you can press contact me to contact me</p>
     </div>
+    <div class="loader"></div>
 </body>
 <script>
     const buttons = document.querySelectorAll("button");
@@ -322,6 +363,16 @@
     }
     });
     });
+    window.addEventListener("load", () => {
+        const loader = document.querySelector(".loader");
+
+        loader.classList.add("loader--hidden");
+
+        loader.addEventListener("transitionend", () => {
+    document.body.removeChild(loader);
+  });
+});
+
 
 </script>
 </html>
